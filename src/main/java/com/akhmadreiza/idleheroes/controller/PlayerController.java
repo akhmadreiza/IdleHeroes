@@ -3,16 +3,16 @@
  */
 package com.akhmadreiza.idleheroes.controller;
 
-import com.akhmadreiza.idleheroes.Utils;
 import com.akhmadreiza.idleheroes.entities.PlayerJobWarrior;
 
 import java.util.List;
 
+import static com.akhmadreiza.idleheroes.constant.GeneralConstants.PLAYER_WARRIOR;
+
 /**
  * @author akhmadreiza
- *
  */
-public class PlayerController extends Utils {
+public class PlayerController {
 
     public static void addItemToInventory(PlayerModifier pm, String addedItemName, int addedItemQty) {
         List listItemName = pm.getPlayerItemName();

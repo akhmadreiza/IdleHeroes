@@ -1,15 +1,19 @@
 package com.akhmadreiza.idleheroes;
 
 import com.akhmadreiza.idleheroes.actions.Battle;
+import com.akhmadreiza.idleheroes.controller.PlayerController;
 import com.akhmadreiza.idleheroes.controller.PlayerModifier;
 import com.akhmadreiza.idleheroes.entities.PlayerJobNovice;
-import com.akhmadreiza.idleheroes.controller.PlayerController;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class MainProcess extends Utils {
+import static com.akhmadreiza.idleheroes.Utils.*;
+import static com.akhmadreiza.idleheroes.constant.GeneralConstants.PLAYER_NOVICE;
+import static com.akhmadreiza.idleheroes.constant.GeneralConstants.PLAYER_WARRIOR;
+
+public class MainProcess {
 
     public static String playerName;
     public static String playerAge;
@@ -19,7 +23,6 @@ public class MainProcess extends Utils {
 
     public static void main(String[] args) throws IOException, InterruptedException {
         PlayerModifier pm = new PlayerModifier();
-        String charclass;
         int num = 2;
         println("=========================");
         println("Idle Heroes v.0");
@@ -47,84 +50,69 @@ public class MainProcess extends Utils {
     }
 
     public static void mainMenu() {
-        try {
-            clearScreen();
+        clearScreen();
 
-            println("=========================");
-            println("Idle Heroes - Main Menu");
-            println("=========================");
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+        println("=========================");
+        println("Idle Heroes - Main Menu");
+        println("=========================");
     }
 
     public static void welcomeMessage(PlayerModifier pm) throws InterruptedException {
-        try {
-            clearScreen();
+        clearScreen();
 
-            String choices = new String();
+        String choices = new String();
 
-            println("==============================");
-            println("Idle Heroes - Main Screen");
-            println("==============================");
+        println("==============================");
+        println("Idle Heroes - Main Screen");
+        println("==============================");
 
-            println("Selamat datang " + pm.getPlayerName() + ", your HP: " + pm.getPlayerHP() + ", your Exp: " + pm.getPlayerExp() + ", your Level: " + pm.getPlayerLevel());
+        println("Selamat datang " + pm.getPlayerName() + ", your HP: " + pm.getPlayerHP() + ", your Exp: " + pm.getPlayerExp() + ", your Level: " + pm.getPlayerLevel());
 
-            println("Tekan 1: Melihat Resources saat ini");
-            println("Tekan 2: Mencari Resource");
-            println("Tekan 3: Crafting");
-            println("Tekan 4: Restore HP");
+        println("Tekan 1: Melihat Resources saat ini");
+        println("Tekan 2: Mencari Resource");
+        println("Tekan 3: Crafting");
+        println("Tekan 4: Restore HP");
 
-            print("Pilihan: ");
+        print("Pilihan: ");
 
-            choices = scan.nextLine();
-            if (choices.equals("1")) {
-                showResources(pm);
-            } else if (choices.equals("2")) {
-                findResources(pm);
-            } else if (choices.equals("4")) {
-                int currHp = pm.getPlayerHP();
-                pm.setPlayerHP(currHp + 50);
-                welcomeMessage(pm);
-            } else {
-                welcomeMessage(pm);
-            }
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+        choices = scan.nextLine();
+        if (choices.equals("1")) {
+            showResources(pm);
+        } else if (choices.equals("2")) {
+            findResources(pm);
+        } else if (choices.equals("4")) {
+            int currHp = pm.getPlayerHP();
+            pm.setPlayerHP(currHp + 50);
+            welcomeMessage(pm);
+        } else {
+            welcomeMessage(pm);
         }
     }
 
     public static void showResources(PlayerModifier pm) throws InterruptedException {
-        try {
-            clearScreen();
+        clearScreen();
 
-            String choices = new String();
+        String choices = new String();
 
-            println("=========================");
-            println("Idle Heroes - Inventory");
-            println("=========================");
+        println("=========================");
+        println("Idle Heroes - Inventory");
+        println("=========================");
 
-            if (pm.getPlayerItemName() != null) {
-                if (pm.getPlayerItemName().size() > 0) {
-                    for (int i = 0; i < pm.getPlayerItemName().size(); i++) {
-                        println("[" + (i + 1) + "/10] " + pm.getPlayerItemName().get(i) + " (" + pm.getPlayerItemQty().get(i) + ")");
-                    }
-                } else println("Kosong...");
+        if (pm.getPlayerItemName() != null) {
+            if (pm.getPlayerItemName().size() > 0) {
+                for (int i = 0; i < pm.getPlayerItemName().size(); i++) {
+                    println("[" + (i + 1) + "/10] " + pm.getPlayerItemName().get(i) + " (" + pm.getPlayerItemQty().get(i) + ")");
+                }
             } else println("Kosong...");
+        } else println("Kosong...");
 
-            do {
-                println("Tekan tombol x untuk kembali ke main screen");
-                print("Pilihan: ");
-                choices = scan.nextLine();
-            } while (!choices.equalsIgnoreCase("x"));
+        do {
+            println("Tekan tombol x untuk kembali ke main screen");
+            print("Pilihan: ");
+            choices = scan.nextLine();
+        } while (!choices.equalsIgnoreCase("x"));
 
-            welcomeMessage(pm);
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+        welcomeMessage(pm);
     }
 
     public static void findResources(PlayerModifier pm) throws InterruptedException {
@@ -176,36 +164,31 @@ public class MainProcess extends Utils {
     }
 
     public static void promotePlayer(PlayerModifier pm) throws InterruptedException {
-        try {
-            clearScreen();
+        clearScreen();
 
-            String choices = new String();
-            PlayerController pc = new PlayerController();
+        String choices = new String();
+        PlayerController pc = new PlayerController();
 
-            println("==============================");
-            println("Idle Heroes - Job List");
-            println("==============================");
+        println("==============================");
+        println("Idle Heroes - Job List");
+        println("==============================");
 
-            println("Selamat " + pm.getPlayerName() + " kamu berhak dipromosikan ke job 1.");
-            println("Silakan pilih job yang kamu suka dibawah ini: ");
+        println("Selamat " + pm.getPlayerName() + " kamu berhak dipromosikan ke job 1.");
+        println("Silakan pilih job yang kamu suka dibawah ini: ");
 
-            println("Tekan 1: Warrior");
-            println("Tekan 2: Archer");
-            println("Tekan 3: Assasin");
-            println("Tekan 4: Mage");
+        println("Tekan 1: Warrior");
+        println("Tekan 2: Archer");
+        println("Tekan 3: Assasin");
+        println("Tekan 4: Mage");
 
-            print("Pilihan: ");
+        print("Pilihan: ");
 
-            choices = scan.nextLine();
-            if (choices.equals("1")) {
-                pm.setPlayerJob(PLAYER_WARRIOR);
-                pc.promote(pm);
-            } else {
-                promotePlayer(pm);
-            }
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+        choices = scan.nextLine();
+        if (choices.equals("1")) {
+            pm.setPlayerJob(PLAYER_WARRIOR);
+            pc.promote(pm);
+        } else {
+            promotePlayer(pm);
         }
     }
 }

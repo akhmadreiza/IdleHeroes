@@ -5,7 +5,6 @@ package com.akhmadreiza.idleheroes.entities;
 
 /**
  * @author akhmadreiza
- *
  */
 public abstract class Player {
 

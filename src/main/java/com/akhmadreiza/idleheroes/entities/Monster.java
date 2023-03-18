@@ -7,7 +7,6 @@ import java.util.List;
 
 /**
  * @author akhmadreiza
- *
  */
 public abstract class Monster {
 

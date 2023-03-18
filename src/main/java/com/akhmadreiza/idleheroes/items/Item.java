@@ -5,7 +5,6 @@ package com.akhmadreiza.idleheroes.items;
 
 /**
  * @author akhmadreiza
- *
  */
 public abstract class Item {
 

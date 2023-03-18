@@ -7,7 +7,6 @@ import com.akhmadreiza.idleheroes.biomes.Forest;
 
 /**
  * @author akhmadreiza
- *
  */
 public class Trees extends Forest {
 

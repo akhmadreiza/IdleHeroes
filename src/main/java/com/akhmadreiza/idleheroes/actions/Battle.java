@@ -15,11 +15,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import static com.akhmadreiza.idleheroes.Utils.*;
+import static com.akhmadreiza.idleheroes.constant.GeneralConstants.MONSTER_CODE_RABBIT;
+
 /**
  * @author akhmadreiza
- *
  */
-public class Battle extends Utils {
+public class Battle {
 
     static Scanner scan = new Scanner(System.in);
     public int _gPlayersHp;

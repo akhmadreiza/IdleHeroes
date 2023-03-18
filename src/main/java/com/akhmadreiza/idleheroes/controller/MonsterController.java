@@ -3,14 +3,14 @@
  */
 package com.akhmadreiza.idleheroes.controller;
 
-import com.akhmadreiza.idleheroes.Utils;
 import com.akhmadreiza.idleheroes.entities.MonsterRabbit;
+
+import static com.akhmadreiza.idleheroes.constant.GeneralConstants.MONSTER_CODE_RABBIT;
 
 /**
  * @author akhmadreiza
- *
  */
-public class MonsterController extends Utils {
+public class MonsterController {
 
     public MonsterModifier getMonsterModifier(String monsterCode) {
         MonsterModifier mons = new MonsterModifier();

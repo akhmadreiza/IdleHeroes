@@ -8,9 +8,10 @@ import com.akhmadreiza.idleheroes.Utils;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.akhmadreiza.idleheroes.constant.GeneralConstants.*;
+
 /**
  * @author akhmadreiza
- *
  */
 public class MonsterRabbit extends Monster {
 
@@ -74,7 +75,7 @@ public class MonsterRabbit extends Monster {
 
     @Override
     public List dropItemName() {
-        String[] itemQtyArr = {Utils.ITEM_RABBIT_SKIN, Utils.ITEM_RABBIT_MEAT, Utils.ITEM_CARROT};
+        String[] itemQtyArr = {ITEM_RABBIT_SKIN, ITEM_RABBIT_MEAT, ITEM_CARROT};
         String itemQty;
         List itemLst = new ArrayList();
 
