@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package com.ara.idleheroes.resources;
 
@@ -10,20 +10,20 @@ import com.ara.idleheroes.biomes.Forest;
  *
  */
 public class Trees extends Forest {
-	
-	private int maxWoodCount;
 
-	@Override
-	public int getTreeCounts() {
-		// TODO Auto-generated method stub
-		return 100;
-	}
+    private int maxWoodCount;
 
-	public int getMaxWoodCount() {
-		return getTreeCounts()*5;
-	}
+    @Override
+    public int getTreeCounts() {
+        // TODO Auto-generated method stub
+        return 100;
+    }
 
-	public void setMaxWoodCount(int maxWoodCount) {
-		this.maxWoodCount = maxWoodCount;
-	}
+    public int getMaxWoodCount() {
+        return getTreeCounts() * 5;
+    }
+
+    public void setMaxWoodCount(int maxWoodCount) {
+        this.maxWoodCount = maxWoodCount;
+    }
 }

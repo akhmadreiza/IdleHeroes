@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package com.ara.idleheroes.actions;
 
@@ -9,6 +9,5 @@ package com.ara.idleheroes.actions;
  */
 public class Gather {
 
-	
-	
+
 }

@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package com.ara.idleheroes.items;
 
@@ -9,7 +9,9 @@ package com.ara.idleheroes.items;
  */
 public abstract class Item {
 
-	public abstract String getName();
-	public abstract String getQty();
-	public abstract String itemType();
+    public abstract String getName();
+
+    public abstract String getQty();
+
+    public abstract String itemType();
 }

@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package com.ara.idleheroes.entities;
 
@@ -9,10 +9,15 @@ package com.ara.idleheroes.entities;
  */
 public abstract class Player {
 
-	public abstract int getHp();
-	public abstract int getMinAtk();
-	public abstract int getMaxAtk();
-	public abstract String getJob();
-	public abstract int getExp();
-	public abstract int getLevel();
+    public abstract int getHp();
+
+    public abstract int getMinAtk();
+
+    public abstract int getMaxAtk();
+
+    public abstract String getJob();
+
+    public abstract int getExp();
+
+    public abstract int getLevel();
 }
