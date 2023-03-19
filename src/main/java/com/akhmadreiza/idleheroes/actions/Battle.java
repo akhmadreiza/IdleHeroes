@@ -42,10 +42,6 @@ public class Battle {
         int monsterMaxAtk = monsterModifier.getMonsterMaxAtk();
 
         //start battle
-        clearScreen();
-        println("Bertemu dengan musuh!");
-        Thread.sleep(1200);
-
         String choices;
 
         do {
@@ -120,11 +116,9 @@ public class Battle {
             println("Dikalahkan oleh musuh!");
         }
 
-        do {
-            println("Tekan tombol x untuk melanjutkan");
-            print("Pilihan: ");
-            choices = scan.nextLine();
-        } while (!choices.equalsIgnoreCase("x"));
+        println("");
+        print("Tekan enter untuk melanjutkan");
+        scan.nextLine();
 
         updateNextState();
     }

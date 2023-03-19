@@ -64,6 +64,9 @@ public class MainProcess {
         } else if (choices.equals("2")) {
             playerModifier.setNextState(StateEnum.ADVENTURE);
             new Adventure(playerModifier).begin();
+        } else if (choices.equals("3")) {
+            featureNotAvailableNotification();
+            playerModifier.setNextState(StateEnum.INIT);
         } else if (choices.equals("4")) {
             int currHp = playerModifier.getPlayerHP();
             playerModifier.setPlayerHP(currHp + 50);
@@ -78,7 +81,8 @@ public class MainProcess {
     }
 
     private static void navigateTo(StateEnum nextState) throws InterruptedException {
-        if (nextState.name().equalsIgnoreCase(StateEnum.BACK_TO_BASE.name())) {
+        if (nextState.name().equalsIgnoreCase(StateEnum.BACK_TO_BASE.name())
+                || nextState.name().equalsIgnoreCase(StateEnum.INIT.name())) {
             welcomeMessage();
         } else if (nextState.name().equalsIgnoreCase(StateEnum.LEVEL_UP.name())) {
             playerModifier.levelUp();
@@ -111,11 +115,9 @@ public class MainProcess {
 
         println("Selamat kamu naik ke level " + playerModifier.getPlayerLevel() + "!!");
 
-        do {
-            println("Tekan tombol x untuk melanjutkan");
-            print("Pilihan: ");
-            choices = scan.nextLine();
-        } while (!choices.equalsIgnoreCase("x"));
+        println("");
+        print("Tekan enter untuk melanjutkan");
+        scan.nextLine();
 
         playerModifier.setNextState(StateEnum.BACK_TO_BASE);
     }
@@ -132,7 +134,7 @@ public class MainProcess {
         if (pm.getPlayerItemName() != null) {
             if (pm.getPlayerItemName().size() > 0) {
                 for (int i = 0; i < pm.getPlayerItemName().size(); i++) {
-                    println("[" + (i + 1) + "/10] " + pm.getPlayerItemName().get(i) + " (" + pm.getPlayerItemQty().get(i) + ")");
+                    println("[" + (i + 1) + "] " + pm.getPlayerItemName().get(i) + " (" + pm.getPlayerItemQty().get(i) + ")");
                 }
             } else println("Kosong...");
         } else println("Kosong...");
@@ -144,6 +146,20 @@ public class MainProcess {
         } while (!choices.equalsIgnoreCase("x"));
 
         pm.setNextState(StateEnum.BACK_TO_BASE);
+    }
+
+    private static void featureNotAvailableNotification() {
+        clearScreen();
+        println("=========================");
+        println("Idle Heroes - Mohon Maaf");
+        println("=========================");
+
+        println("Fitur ini saat ini sedang dalam pengembangan.");
+        println("Email: reizaarmando@gmail.com");
+
+        println("");
+        print("Tekan enter untuk melanjutkan");
+        scan.nextLine();
     }
 
     /*public static void findResources(PlayerModifier pm) throws InterruptedException {
