@@ -3,14 +3,11 @@
  */
 package com.akhmadreiza.idleheroes.actions;
 
-import com.akhmadreiza.idleheroes.MainProcess;
-import com.akhmadreiza.idleheroes.Utils;
 import com.akhmadreiza.idleheroes.controller.MonsterController;
 import com.akhmadreiza.idleheroes.controller.MonsterModifier;
 import com.akhmadreiza.idleheroes.controller.PlayerController;
 import com.akhmadreiza.idleheroes.controller.PlayerModifier;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -27,11 +24,9 @@ public class Battle {
     public int _gPlayersHp;
     public int _gPlayersMinAtk;
     public int _gPlayersMaxAtk;
-    Utils gameUtil = new Utils();
-    MainProcess mainProc = new MainProcess();
     //PlayerModifier pm = new PlayerModifier();
 
-    public PlayerModifier Battle(PlayerModifier pm) throws IOException, InterruptedException {
+    public PlayerModifier battle(PlayerModifier pm) throws InterruptedException {
         this._gPlayersMinAtk = pm.getPlayerMinAtk();
         this._gPlayersMaxAtk = pm.getPlayerMaxAtk();
         this._gPlayersHp = pm.getPlayerHP();
@@ -41,7 +36,7 @@ public class Battle {
         int totalHit = 0;
 
         MonsterController monController = new MonsterController();
-        MonsterModifier monsMod = (MonsterModifier) monController.getMonsterModifier(MONSTER_CODE_RABBIT); //TODO: TEMPORARILY HARDCODED MONSTER TO RABBIT
+        MonsterModifier monsMod = monController.getMonsterModifier(MONSTER_CODE_RABBIT); //TODO: TEMPORARILY HARDCODED MONSTER TO RABBIT
 
         int _monHp = monsMod.getMonsterHP();
         int _monMinAtk = monsMod.getMonsterMinAtk();
@@ -142,7 +137,7 @@ public class Battle {
 
     public int expObtainedFormula(int totalHit, int monExp, int currPlayerExp) {
         int playerExpAfterBattle;
-        playerExpAfterBattle = (int) (totalHit * monExp / 2);
+        playerExpAfterBattle = totalHit * monExp / 2;
         println("exp didapatkan: " + playerExpAfterBattle);
         return currPlayerExp + playerExpAfterBattle;
     }

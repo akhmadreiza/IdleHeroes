@@ -16,22 +16,19 @@ import static com.akhmadreiza.idleheroes.constant.GeneralConstants.PLAYER_WARRIO
 public class MainProcess {
 
     public static String playerName;
-    public static String playerAge;
 
     public static int[] resources = {20, 20}; //wood,stones
     static Scanner scan = new Scanner(System.in);
 
     public static void main(String[] args) throws IOException, InterruptedException {
+        clearScreen();
         PlayerModifier pm = new PlayerModifier();
-        int num = 2;
         println("=========================");
         println("Idle Heroes v.0");
         println("=========================");
 
         print("Enter your Name: ");
         playerName = scan.nextLine();
-        print("Enter your Age: ");
-        playerAge = scan.nextLine();
 
         pm.setPlayerName(playerName);
         pm.setPlayerJob("Novice"); //init
@@ -153,7 +150,7 @@ public class MainProcess {
         Battle btl = new Battle();
         PlayerController pc = new PlayerController();
 
-        btl.Battle(pm);
+        btl.battle(pm);
         if (pm.getPlayerExp() >= 100) {
             pc.levelUp(pm);
         }
@@ -163,7 +160,7 @@ public class MainProcess {
         }
     }
 
-    public static void promotePlayer(PlayerModifier pm) throws InterruptedException {
+    public static void promotePlayer(PlayerModifier pm) {
         clearScreen();
 
         String choices = new String();
