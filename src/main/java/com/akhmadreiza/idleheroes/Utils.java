@@ -10,9 +10,8 @@ import java.util.Random;
  */
 public class Utils {
     public static void clearScreen() {
-        for (int i = 1; i <= 100; i++) {
-            println("\n");
-        }
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
     }
 
     public static void print(String print) {
