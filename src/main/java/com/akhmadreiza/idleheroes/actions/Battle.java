@@ -81,7 +81,8 @@ public class Battle {
 
                 Thread.sleep(1000);
             } else if (choices.equals("x")) {
-                playerModifier.setNextState(StateEnum.BACK_TO_BASE);
+                clearScreen();
+                println("Berhasil kabur dari musuh!");
             }
 
         } while (!choices.equalsIgnoreCase("x") && (monsterHP > 0 && playerModifier.getPlayerHP() > 0));
