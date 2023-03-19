@@ -54,6 +54,7 @@ public class MainProcess {
         println("Tekan 2: Berpetualang");
         println("Tekan 3: Crafting");
         println("Tekan 4: Heal");
+        println("Tekan q: Keluar");
 
         print("Pilihan: ");
 
@@ -67,6 +68,9 @@ public class MainProcess {
             int currHp = playerModifier.getPlayerHP();
             playerModifier.setPlayerHP(currHp + 50);
             navigateTo(StateEnum.BACK_TO_BASE);
+        } else if (choices.equals("q")) {
+            exitNotification();
+            System.exit(0);
         } else {
             navigateTo(StateEnum.BACK_TO_BASE);
         }
@@ -86,6 +90,15 @@ public class MainProcess {
         } else if (nextState.name().equalsIgnoreCase(StateEnum.PROMOTE.name())) {
             promotePlayer();
         }
+    }
+
+    public static void exitNotification() {
+        clearScreen();
+        println("=========================");
+        println("Idle Heroes - Exit Game");
+        println("=========================");
+
+        println("Terima kasih telah bermain..");
     }
 
     public static void levelUpNotification() {
