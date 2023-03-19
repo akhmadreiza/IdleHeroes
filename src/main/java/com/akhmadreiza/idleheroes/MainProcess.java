@@ -1,16 +1,15 @@
 package com.akhmadreiza.idleheroes;
 
-import com.akhmadreiza.idleheroes.actions.Battle;
+import com.akhmadreiza.idleheroes.actions.Adventure;
+import com.akhmadreiza.idleheroes.constant.StateEnum;
 import com.akhmadreiza.idleheroes.controller.PlayerController;
 import com.akhmadreiza.idleheroes.controller.PlayerModifier;
 import com.akhmadreiza.idleheroes.entities.PlayerJobNovice;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 import static com.akhmadreiza.idleheroes.Utils.*;
-import static com.akhmadreiza.idleheroes.constant.GeneralConstants.PLAYER_NOVICE;
 import static com.akhmadreiza.idleheroes.constant.GeneralConstants.PLAYER_WARRIOR;
 
 public class MainProcess {
@@ -20,70 +19,92 @@ public class MainProcess {
     public static int[] resources = {20, 20}; //wood,stones
     static Scanner scan = new Scanner(System.in);
 
+    private static PlayerModifier playerModifier;
+
     public static void main(String[] args) throws IOException, InterruptedException {
         clearScreen();
-        PlayerModifier pm = new PlayerModifier();
         println("=========================");
-        println("Idle Heroes v.0");
+        println("Idle Heroes V.0");
         println("=========================");
 
-        print("Enter your Name: ");
+        print("Masukkan username: ");
         playerName = scan.nextLine();
-
-        pm.setPlayerName(playerName);
-        pm.setPlayerJob("Novice"); //init
-        pm.setPlayerItemName(new ArrayList());
-        pm.setPlayerItemQty(new ArrayList());
-
-        if (PLAYER_NOVICE.equals(pm.getPlayerJob())) {
-            PlayerJobNovice novice = new PlayerJobNovice();
-            pm.setPlayerHP(novice.getHp());
-            pm.setPlayerMaxAtk(novice.getMaxAtk());
-            pm.setPlayerMinAtk(novice.getMinAtk());
-            pm.setPlayerLevel(novice.getLevel());
-        }
-
-        welcomeMessage(pm);
+        initNewGame();
+        welcomeMessage();
     }
 
-    public static void mainMenu() {
-        clearScreen();
-
-        println("=========================");
-        println("Idle Heroes - Main Menu");
-        println("=========================");
+    public static void initNewGame() {
+        playerModifier = new PlayerModifier(new PlayerJobNovice());
+        playerModifier.setPlayerName(playerName);
+        playerModifier.setPrevState(StateEnum.INIT);
     }
 
-    public static void welcomeMessage(PlayerModifier pm) throws InterruptedException {
+    public static void welcomeMessage() throws InterruptedException {
         clearScreen();
 
         String choices = new String();
 
         println("==============================");
-        println("Idle Heroes - Main Screen");
+        println("Idle Heroes - Home Base");
         println("==============================");
 
-        println("Selamat datang " + pm.getPlayerName() + ", your HP: " + pm.getPlayerHP() + ", your Exp: " + pm.getPlayerExp() + ", your Level: " + pm.getPlayerLevel());
+        println("Selamat datang " + playerModifier.getPlayerName() + ", your HP: " + playerModifier.getPlayerHP() + ", your Exp: " + playerModifier.getPlayerExp() + ", your Level: " + playerModifier.getPlayerLevel());
 
-        println("Tekan 1: Melihat Resources saat ini");
-        println("Tekan 2: Mencari Resource");
+        println("Tekan 1: Buka tas");
+        println("Tekan 2: Berpetualang");
         println("Tekan 3: Crafting");
-        println("Tekan 4: Restore HP");
+        println("Tekan 4: Heal");
 
         print("Pilihan: ");
 
         choices = scan.nextLine();
         if (choices.equals("1")) {
-            showResources(pm);
+            showResources(playerModifier);
         } else if (choices.equals("2")) {
-            findResources(pm);
+            playerModifier.setNextState(StateEnum.ADVENTURE);
+            new Adventure(playerModifier).begin();
         } else if (choices.equals("4")) {
-            int currHp = pm.getPlayerHP();
-            pm.setPlayerHP(currHp + 50);
-            welcomeMessage(pm);
+            int currHp = playerModifier.getPlayerHP();
+            playerModifier.setPlayerHP(currHp + 50);
+            navigateTo(StateEnum.BACK_TO_BASE);
         } else {
-            welcomeMessage(pm);
+            navigateTo(StateEnum.BACK_TO_BASE);
         }
+        navigateTo(playerModifier.getNextState());
+    }
+
+    private static void navigateTo(StateEnum nextState) throws InterruptedException {
+        if (nextState.name().equalsIgnoreCase(StateEnum.BACK_TO_BASE.name())) {
+            welcomeMessage();
+        } else if (nextState.name().equalsIgnoreCase(StateEnum.LEVEL_UP.name())) {
+            playerModifier.levelUp();
+            levelUpNotification();
+            if (playerModifier.getPlayerLevel() == 5) {
+                playerModifier.setNextState(StateEnum.PROMOTE);
+            }
+            navigateTo(playerModifier.getNextState());
+        } else if (nextState.name().equalsIgnoreCase(StateEnum.PROMOTE.name())) {
+            promotePlayer();
+        }
+    }
+
+    public static void levelUpNotification() {
+        clearScreen();
+
+        String choices;
+        println("=========================");
+        println("Idle Heroes - LEVEL UP!");
+        println("=========================");
+
+        println("Selamat kamu naik ke level " + playerModifier.getPlayerLevel() + "!!");
+
+        do {
+            println("Tekan tombol x untuk melanjutkan");
+            print("Pilihan: ");
+            choices = scan.nextLine();
+        } while (!choices.equalsIgnoreCase("x"));
+
+        playerModifier.setNextState(StateEnum.BACK_TO_BASE);
     }
 
     public static void showResources(PlayerModifier pm) throws InterruptedException {
@@ -92,7 +113,7 @@ public class MainProcess {
         String choices = new String();
 
         println("=========================");
-        println("Idle Heroes - Inventory");
+        println("Idle Heroes - Tas");
         println("=========================");
 
         if (pm.getPlayerItemName() != null) {
@@ -104,15 +125,15 @@ public class MainProcess {
         } else println("Kosong...");
 
         do {
-            println("Tekan tombol x untuk kembali ke main screen");
+            println("Tekan tombol x untuk melanjutkan");
             print("Pilihan: ");
             choices = scan.nextLine();
         } while (!choices.equalsIgnoreCase("x"));
 
-        welcomeMessage(pm);
+        pm.setNextState(StateEnum.BACK_TO_BASE);
     }
 
-    public static void findResources(PlayerModifier pm) throws InterruptedException {
+    /*public static void findResources(PlayerModifier pm) throws InterruptedException {
         try {
             clearScreen();
 
@@ -130,12 +151,13 @@ public class MainProcess {
 
             println("\n\n\n");
             println("Finding.....");
-            Thread.sleep(1500);
+            Thread.sleep(2000);
 
             if (foo < 60) //60% chance of meeting monster
             {
                 startBattle(pm);
             } else {
+                //TODO if do not meet monster, give the player random resource
                 welcomeMessage(pm);
             }
 
@@ -144,9 +166,9 @@ public class MainProcess {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-    }
+    }*/
 
-    public static void startBattle(PlayerModifier pm) throws IOException, InterruptedException {
+    /*public static void startBattle(PlayerModifier pm) throws IOException, InterruptedException {
         Battle btl = new Battle();
         PlayerController pc = new PlayerController();
 
@@ -158,9 +180,9 @@ public class MainProcess {
         if (pm.getPlayerLevel() == 5) {
             promotePlayer(pm);
         }
-    }
+    }*/
 
-    public static void promotePlayer(PlayerModifier pm) {
+    public static void promotePlayer() {
         clearScreen();
 
         String choices = new String();
@@ -170,7 +192,7 @@ public class MainProcess {
         println("Idle Heroes - Job List");
         println("==============================");
 
-        println("Selamat " + pm.getPlayerName() + " kamu berhak dipromosikan ke job 1.");
+        println("Selamat " + playerModifier.getPlayerName() + " kamu berhak dipromosikan ke job 1.");
         println("Silakan pilih job yang kamu suka dibawah ini: ");
 
         println("Tekan 1: Warrior");
@@ -182,10 +204,10 @@ public class MainProcess {
 
         choices = scan.nextLine();
         if (choices.equals("1")) {
-            pm.setPlayerJob(PLAYER_WARRIOR);
-            pc.promote(pm);
+            playerModifier.setPlayerJob(PLAYER_WARRIOR);
+            pc.promote(playerModifier);
         } else {
-            promotePlayer(pm);
+            promotePlayer();
         }
     }
 }
