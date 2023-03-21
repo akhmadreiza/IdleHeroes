@@ -25,6 +25,7 @@ public class MainProcess {
         clearScreen();
         println("=========================");
         println("Idle Heroes V.0");
+        println("OS: " + getOsName());
         println("=========================");
 
         print("Masukkan username: ");

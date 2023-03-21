@@ -3,6 +3,7 @@
  */
 package com.akhmadreiza.idleheroes;
 
+import java.io.IOException;
 import java.util.Random;
 
 /**
@@ -10,8 +11,17 @@ import java.util.Random;
  */
 public class Utils {
     public static void clearScreen() {
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
+        if (getOsName().contains("Windows")) {
+            try {
+                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+                System.out.println("");
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+                System.out.println("");
+            }
+        }
     }
 
     public static void print(String print) {
@@ -29,5 +39,9 @@ public class Utils {
     public static int getRandBetweenInt(int minVal, int maxVal) {
         Random ran = new Random();
         return ran.nextInt((maxVal - minVal) + 1) + minVal;
+    }
+
+    public static String getOsName() {
+        return System.getProperty("os.name");
     }
 }
