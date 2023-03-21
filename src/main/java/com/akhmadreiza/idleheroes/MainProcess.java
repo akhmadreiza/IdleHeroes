@@ -5,6 +5,8 @@ import com.akhmadreiza.idleheroes.constant.StateEnum;
 import com.akhmadreiza.idleheroes.controller.PlayerController;
 import com.akhmadreiza.idleheroes.controller.PlayerModifier;
 import com.akhmadreiza.idleheroes.entities.PlayerJobNovice;
+import com.akhmadreiza.idleheroes.entities.PlayerJobWarrior;
+import com.akhmadreiza.idleheroes.exception.FeatureUnimplementedException;
 
 import java.io.IOException;
 import java.util.Scanner;
@@ -94,6 +96,7 @@ public class MainProcess {
             navigateTo(playerModifier.getNextState());
         } else if (nextState.name().equalsIgnoreCase(StateEnum.PROMOTE.name())) {
             promotePlayer();
+            navigateTo(playerModifier.getNextState());
         }
     }
 
@@ -163,55 +166,6 @@ public class MainProcess {
         scan.nextLine();
     }
 
-    /*public static void findResources(PlayerModifier pm) throws InterruptedException {
-        try {
-            clearScreen();
-
-            String choices = new String();
-
-            println("=============================");
-            println("Idle Heroes - Finding Resources!");
-            println("==============================");
-
-            println("Wood: " + resources[0]);
-            println("Stones: " + resources[1]);
-
-            int foo = getRandPercentage();
-            println("random foo: " + foo);
-
-            println("\n\n\n");
-            println("Finding.....");
-            Thread.sleep(2000);
-
-            if (foo < 60) //60% chance of meeting monster
-            {
-                startBattle(pm);
-            } else {
-                //TODO if do not meet monster, give the player random resource
-                welcomeMessage(pm);
-            }
-
-            welcomeMessage(pm);
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-    }*/
-
-    /*public static void startBattle(PlayerModifier pm) throws IOException, InterruptedException {
-        Battle btl = new Battle();
-        PlayerController pc = new PlayerController();
-
-        btl.battle(pm);
-        if (pm.getPlayerExp() >= 100) {
-            pc.levelUp(pm);
-        }
-
-        if (pm.getPlayerLevel() == 5) {
-            promotePlayer(pm);
-        }
-    }*/
-
     public static void promotePlayer() {
         clearScreen();
 
@@ -233,11 +187,33 @@ public class MainProcess {
         print("Pilihan: ");
 
         choices = scan.nextLine();
-        if (choices.equals("1")) {
-            playerModifier.setPlayerJob(PLAYER_WARRIOR);
-            pc.promote(playerModifier);
-        } else {
+        try {
+            if (choices.equals("1")) {
+                playerModifier.promote(new PlayerJobWarrior());
+                promoteSuccessNotification();
+                playerModifier.setNextState(StateEnum.BACK_TO_BASE);
+            } else {
+                featureNotAvailableNotification();
+                promotePlayer();
+            }
+        } catch (FeatureUnimplementedException featureUnimplementedException) {
+            featureUnimplementedException.printStackTrace();
             promotePlayer();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+    }
+
+    private static void promoteSuccessNotification() {
+        clearScreen();
+        println("=========================");
+        println("Idle Heroes - Success Promoted");
+        println("=========================");
+
+        println("Selamat " + playerModifier.getPlayerName() + " kamu berhasil promote ke job " + playerModifier.getPlayerJob() + "!");
+
+        println("");
+        print("Tekan enter untuk melanjutkan");
+        scan.nextLine();
     }
 }
