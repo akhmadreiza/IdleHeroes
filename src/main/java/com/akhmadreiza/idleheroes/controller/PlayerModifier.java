@@ -16,6 +16,9 @@ import lombok.NoArgsConstructor;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.akhmadreiza.idleheroes.Utils.print;
+import static com.akhmadreiza.idleheroes.Utils.println;
+
 /**
  * @author akhmadreiza
  */
@@ -73,5 +76,20 @@ public class PlayerModifier {
         } else {
             throw new FeatureUnimplementedException("Player Job not implemented yet");
         }
+    }
+
+    public void printStat() {
+        println("==============================");
+        println("Idle Heroes - Your Stats");
+        println("==============================");
+
+        println("");
+
+        println("HP" + ":" + this.playerHP);
+        println("Job" + ":" + this.playerJob);
+        println("Level" + ":" + this.playerLevel);
+        println("XP" + ":" + this.playerLevel);
+
+        println("==============================");
     }
 }

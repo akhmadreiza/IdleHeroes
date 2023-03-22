@@ -12,7 +12,6 @@ import java.io.IOException;
 import java.util.Scanner;
 
 import static com.akhmadreiza.idleheroes.Utils.*;
-import static com.akhmadreiza.idleheroes.constant.GeneralConstants.PLAYER_WARRIOR;
 
 public class MainProcess {
 
@@ -53,24 +52,27 @@ public class MainProcess {
 
         println("Selamat datang " + playerModifier.getPlayerName() + ", your HP: " + playerModifier.getPlayerHP() + ", your Exp: " + playerModifier.getPlayerExp() + ", your Level: " + playerModifier.getPlayerLevel());
 
-        println("Tekan 1: Buka tas");
-        println("Tekan 2: Berpetualang");
-        println("Tekan 3: Crafting");
-        println("Tekan 4: Heal");
+        println("Tekan 1: Lihat stat");
+        println("Tekan 2: Lihat tas");
+        println("Tekan 3: Berpetualang");
+        println("Tekan 4: Crafting");
+        println("Tekan 5: Heal");
         println("Tekan q: Keluar");
 
         print("Pilihan: ");
 
         choices = scan.nextLine();
         if (choices.equals("1")) {
-            showResources(playerModifier);
+            printPlayerStats();
         } else if (choices.equals("2")) {
+            showResources(playerModifier);
+        } else if (choices.equals("3")) {
             playerModifier.setNextState(StateEnum.ADVENTURE);
             new Adventure(playerModifier).begin();
-        } else if (choices.equals("3")) {
+        } else if (choices.equals("4")) {
             featureNotAvailableNotification();
             playerModifier.setNextState(StateEnum.INIT);
-        } else if (choices.equals("4")) {
+        } else if (choices.equals("5")) {
             int currHp = playerModifier.getPlayerHP();
             playerModifier.setPlayerHP(currHp + 50);
             navigateTo(StateEnum.BACK_TO_BASE);
@@ -98,6 +100,16 @@ public class MainProcess {
             promotePlayer();
             navigateTo(playerModifier.getNextState());
         }
+    }
+
+    private static void printPlayerStats() {
+        playerModifier.printStat();
+
+        println("");
+        print("Tekan enter untuk melanjutkan");
+        scan.nextLine();
+
+        playerModifier.setNextState(StateEnum.BACK_TO_BASE);
     }
 
     public static void exitNotification() {
