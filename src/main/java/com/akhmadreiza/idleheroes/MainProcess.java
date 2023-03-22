@@ -103,6 +103,7 @@ public class MainProcess {
     }
 
     private static void printPlayerStats() {
+        clearScreen();
         playerModifier.printStat();
 
         println("");

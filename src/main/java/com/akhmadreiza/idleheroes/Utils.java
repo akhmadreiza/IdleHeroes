@@ -21,6 +21,9 @@ public class Utils {
                 ioException.printStackTrace();
                 System.out.println("");
             }
+        } else {
+            System.out.print("\033[H\033[2J");
+            System.out.flush();
         }
     }
 
