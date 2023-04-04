@@ -1,16 +1,11 @@
-/**
- *
- */
 package com.akhmadreiza.idleheroes.items;
 
-/**
- * @author akhmadreiza
- */
-public abstract class Item {
+import com.akhmadreiza.idleheroes.constant.ItemType;
+import lombok.Data;
 
-    public abstract String getName();
-
-    public abstract String getQty();
-
-    public abstract String itemType();
+@Data
+public class Item {
+    private String name;
+    private int qty;
+    private ItemType itemType;
 }

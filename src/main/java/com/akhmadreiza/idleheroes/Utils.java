@@ -39,6 +39,10 @@ public class Utils {
         return (int) (Math.random() * 100);
     }
 
+    public static boolean gotChance(int percentage) {
+        return (int) (Math.random() * 100) < percentage;
+    }
+
     public static int getRandBetweenInt(int minVal, int maxVal) {
         Random ran = new Random();
         return ran.nextInt((maxVal - minVal) + 1) + minVal;

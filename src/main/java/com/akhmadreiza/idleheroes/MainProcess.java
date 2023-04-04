@@ -1,8 +1,8 @@
 package com.akhmadreiza.idleheroes;
 
 import com.akhmadreiza.idleheroes.actions.Adventure;
+import com.akhmadreiza.idleheroes.constant.ItemType;
 import com.akhmadreiza.idleheroes.constant.StateEnum;
-import com.akhmadreiza.idleheroes.controller.PlayerController;
 import com.akhmadreiza.idleheroes.controller.PlayerModifier;
 import com.akhmadreiza.idleheroes.entities.PlayerJobNovice;
 import com.akhmadreiza.idleheroes.entities.PlayerJobWarrior;
@@ -35,13 +35,13 @@ public class MainProcess {
         welcomeMessage();
     }
 
-    public static void initNewGame() {
+    private static void initNewGame() {
         playerModifier = new PlayerModifier(new PlayerJobNovice());
         playerModifier.setPlayerName(playerName);
         playerModifier.setPrevState(StateEnum.INIT);
     }
 
-    public static void welcomeMessage() throws InterruptedException {
+    private static void welcomeMessage() throws InterruptedException {
         clearScreen();
 
         String choices = new String();
@@ -52,12 +52,12 @@ public class MainProcess {
 
         println("Selamat datang " + playerModifier.getPlayerName() + ", your HP: " + playerModifier.getPlayerHP() + ", your Exp: " + playerModifier.getPlayerExp() + ", your Level: " + playerModifier.getPlayerLevel());
 
-        println("Tekan 1: Lihat stat");
-        println("Tekan 2: Lihat tas");
-        println("Tekan 3: Berpetualang");
-        println("Tekan 4: Crafting");
-        println("Tekan 5: Heal");
-        println("Tekan q: Keluar");
+        println("");
+        println("[1] Lihat stat   | [4] Crafting");
+        println("[2] Lihat tas    | [5] Heal");
+        println("[3] Berpetualang | ");
+        println("[x] Keluar");
+        println("");
 
         print("Pilihan: ");
 
@@ -65,7 +65,7 @@ public class MainProcess {
         if (choices.equals("1")) {
             printPlayerStats();
         } else if (choices.equals("2")) {
-            showResources(playerModifier);
+            showResources();
         } else if (choices.equals("3")) {
             playerModifier.setNextState(StateEnum.ADVENTURE);
             new Adventure(playerModifier).begin();
@@ -73,10 +73,11 @@ public class MainProcess {
             featureNotAvailableNotification();
             playerModifier.setNextState(StateEnum.INIT);
         } else if (choices.equals("5")) {
-            int currHp = playerModifier.getPlayerHP();
+            /*int currHp = playerModifier.getPlayerHP();
             playerModifier.setPlayerHP(currHp + 50);
-            navigateTo(StateEnum.BACK_TO_BASE);
-        } else if (choices.equals("q")) {
+            navigateTo(StateEnum.BACK_TO_BASE);*/
+            showConsumables();
+        } else if (choices.equalsIgnoreCase("x")) {
             exitNotification();
             System.exit(0);
         } else {
@@ -113,7 +114,7 @@ public class MainProcess {
         playerModifier.setNextState(StateEnum.BACK_TO_BASE);
     }
 
-    public static void exitNotification() {
+    private static void exitNotification() {
         clearScreen();
         println("=========================");
         println("Idle Heroes - Exit Game");
@@ -122,7 +123,7 @@ public class MainProcess {
         println("Terima kasih telah bermain..");
     }
 
-    public static void levelUpNotification() {
+    private static void levelUpNotification() {
         clearScreen();
 
         String choices;
@@ -139,30 +140,32 @@ public class MainProcess {
         playerModifier.setNextState(StateEnum.BACK_TO_BASE);
     }
 
-    public static void showResources(PlayerModifier pm) throws InterruptedException {
+    public static void showResources() {
         clearScreen();
+        playerModifier.printAllItems();
 
-        String choices = new String();
-
-        println("=========================");
-        println("Idle Heroes - Tas");
-        println("=========================");
-
-        if (pm.getPlayerItemName() != null) {
-            if (pm.getPlayerItemName().size() > 0) {
-                for (int i = 0; i < pm.getPlayerItemName().size(); i++) {
-                    println("[" + (i + 1) + "] " + pm.getPlayerItemName().get(i) + " (" + pm.getPlayerItemQty().get(i) + ")");
-                }
-            } else println("Kosong...");
-        } else println("Kosong...");
-
+        String choices;
         do {
             println("Tekan tombol x untuk melanjutkan");
             print("Pilihan: ");
             choices = scan.nextLine();
         } while (!choices.equalsIgnoreCase("x"));
 
-        pm.setNextState(StateEnum.BACK_TO_BASE);
+        playerModifier.setNextState(StateEnum.BACK_TO_BASE);
+    }
+
+    private static void showConsumables() {
+        clearScreen();
+        playerModifier.printInventory(ItemType.CONSUMABLES);
+
+        String choices;
+        println("[x] Keluar");
+        do {
+            print("Pilihan: ");
+            choices = scan.nextLine();
+        } while (!choices.equalsIgnoreCase("x"));
+
+        playerModifier.setNextState(StateEnum.BACK_TO_BASE);
     }
 
     private static void featureNotAvailableNotification() {
@@ -179,11 +182,10 @@ public class MainProcess {
         scan.nextLine();
     }
 
-    public static void promotePlayer() {
+    private static void promotePlayer() {
         clearScreen();
 
         String choices = new String();
-        PlayerController pc = new PlayerController();
 
         println("==============================");
         println("Idle Heroes - Job List");

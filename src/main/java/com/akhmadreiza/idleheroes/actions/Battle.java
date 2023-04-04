@@ -4,17 +4,13 @@
 package com.akhmadreiza.idleheroes.actions;
 
 import com.akhmadreiza.idleheroes.constant.StateEnum;
-import com.akhmadreiza.idleheroes.controller.MonsterController;
 import com.akhmadreiza.idleheroes.controller.MonsterModifier;
-import com.akhmadreiza.idleheroes.controller.PlayerController;
 import com.akhmadreiza.idleheroes.controller.PlayerModifier;
+import com.akhmadreiza.idleheroes.entities.MonsterRabbit;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 import static com.akhmadreiza.idleheroes.Utils.*;
-import static com.akhmadreiza.idleheroes.constant.GeneralConstants.MONSTER_CODE_RABBIT;
 
 /**
  * @author akhmadreiza
@@ -34,12 +30,8 @@ public class Battle {
         int monRealAtk;
         int totalHit = 0;
 
-        MonsterController monsterController = new MonsterController();
-        MonsterModifier monsterModifier = monsterController.getMonsterModifier(MONSTER_CODE_RABBIT); //TODO: TEMPORARILY HARDCODED MONSTER TO RABBIT
-
+        MonsterModifier monsterModifier = new MonsterModifier(new MonsterRabbit());
         int monsterHP = monsterModifier.getMonsterHP();
-        int monsterMinAtk = monsterModifier.getMonsterMinAtk();
-        int monsterMaxAtk = monsterModifier.getMonsterMaxAtk();
 
         //start battle
         String choices;
@@ -57,7 +49,7 @@ public class Battle {
             if (choices.equalsIgnoreCase("a")) {
                 clearScreen();
                 playerRealAtk = getRandBetweenInt(playerModifier.getPlayerMinAtk(), playerModifier.getPlayerMaxAtk());
-                monRealAtk = getRandBetweenInt(monsterMinAtk, monsterMaxAtk);
+                monRealAtk = getRandBetweenInt(monsterModifier.getMonsterMinAtk(), monsterModifier.getMonsterMaxAtk());
 
                 if (playerModifier.getPlayerName().equalsIgnoreCase("superibab")) {
                     playerRealAtk = 1000;
@@ -85,30 +77,7 @@ public class Battle {
 
         if (monsterHP <= 0) {
             clearScreen();
-            playerModifier.setPlayerExp(expObtainedFormula(totalHit, monsterModifier.getMonsterExp(), playerModifier.getPlayerExp()));
-
-            PlayerController pc = new PlayerController();
-
-            //get monster drop item list_start
-            List monsterDrop = new ArrayList();
-            List monsterDropQty = new ArrayList();
-            monsterDrop = monsterModifier.getMonsterDropItem();
-            monsterDropQty = monsterModifier.getMonsterDropQty();
-
-            for (int i = 0; i < monsterDrop.size(); i++) {
-                String itemName = new String();
-                int itemQty;
-
-                itemName = (String) monsterDrop.get(i);
-                itemQty = (Integer) monsterDropQty.get(i);
-                pc.addItemToInventory(playerModifier, itemName, itemQty);
-            }
-            //get monster drop item list_end
-
-            if (playerModifier.getPlayerName().equalsIgnoreCase("superibab")) {
-                playerModifier.setPlayerExp(100);
-            }
-            println("Musuh berhasil dilumpuhkan!");
+            handleRewards(totalHit, monsterModifier);
         }
 
         if (playerModifier.getPlayerHP() <= 0) {
@@ -121,6 +90,15 @@ public class Battle {
         scan.nextLine();
 
         updateNextState();
+    }
+
+    private void handleRewards(int totalHit, MonsterModifier monsterModifier) {
+        playerModifier.setPlayerExp(expObtainedFormula(totalHit, monsterModifier.getMonsterExp(), playerModifier.getPlayerExp()));
+        playerModifier.addItemToInventory(monsterModifier.getMonsterDrops());
+        if (playerModifier.getPlayerName().equalsIgnoreCase("superibab")) {
+            playerModifier.setPlayerExp(100);
+        }
+        println("Musuh berhasil dilumpuhkan!");
     }
 
     private void updateNextState() {

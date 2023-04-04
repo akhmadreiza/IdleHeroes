@@ -3,6 +3,9 @@
  */
 package com.akhmadreiza.idleheroes.controller;
 
+import com.akhmadreiza.idleheroes.entities.Monster;
+import com.akhmadreiza.idleheroes.entities.MonsterRabbit;
+import com.akhmadreiza.idleheroes.items.Item;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -27,7 +30,19 @@ public class MonsterModifier {
     private String monsterClass;
     private int monsterExp;
     private int monsterLevel;
-    private List monsterDropItem;
-    private List monsterDropQty;
+    private List<Item> monsterDrops;
 
+    public MonsterModifier(Monster monster) {
+        if (monster instanceof MonsterRabbit) {
+            MonsterRabbit rbt = (MonsterRabbit) monster;
+            this.monsterName = rbt.getName();
+            this.monsterClass = rbt.getClazz();
+            this.monsterHP = rbt.getHp();
+            this.monsterMinAtk = rbt.getMinAtk();
+            this.monsterMaxAtk = rbt.getMaxAtk();
+            this.monsterExp = rbt.getStoredExp();
+            this.monsterLevel = rbt.getLevel();
+            this.monsterDrops = rbt.getDrops();
+        }
+    }
 }

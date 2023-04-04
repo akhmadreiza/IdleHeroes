@@ -3,6 +3,8 @@
  */
 package com.akhmadreiza.idleheroes.entities;
 
+import com.akhmadreiza.idleheroes.items.Item;
+
 import java.util.List;
 
 /**
@@ -26,7 +28,5 @@ public abstract class Monster {
 
     public abstract int getLevel();
 
-    public abstract List dropItemQty();
-
-    public abstract List dropItemName();
+    public abstract List<Item> getDrops();
 }

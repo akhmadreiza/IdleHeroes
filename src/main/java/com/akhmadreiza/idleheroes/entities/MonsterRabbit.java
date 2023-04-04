@@ -4,11 +4,16 @@
 package com.akhmadreiza.idleheroes.entities;
 
 import com.akhmadreiza.idleheroes.Utils;
+import com.akhmadreiza.idleheroes.constant.ItemType;
+import com.akhmadreiza.idleheroes.items.Consumable;
+import com.akhmadreiza.idleheroes.items.Item;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.akhmadreiza.idleheroes.constant.GeneralConstants.*;
+import static com.akhmadreiza.idleheroes.constant.GeneralConstants.ANIMAL_SKIN;
+import static com.akhmadreiza.idleheroes.constant.GeneralConstants.MEAT;
+import static com.akhmadreiza.idleheroes.constant.ItemType.RESOURCES;
 
 /**
  * @author akhmadreiza
@@ -61,28 +66,28 @@ public class MonsterRabbit extends Monster {
     }
 
     @Override
-    public List dropItemQty() {
-        int[] itemQtyArr = {1, 1, 1};
-        int itemQty;
-        List itemQtyLst = new ArrayList();
+    public List<Item> getDrops() {
+        List<Item> result = new ArrayList<>();
 
-        for (int i = 0; i < itemQtyArr.length; i++) {
-            itemQtyLst.add(itemQtyArr[i]);
+        //60% change got meat
+        if (Utils.gotChance(60)) {
+            Consumable meat = new Consumable();
+            meat.setName(MEAT);
+            meat.setQty(1);
+            meat.setHealPoint(10);
+            meat.setItemType(ItemType.CONSUMABLES);
+            result.add(meat);
         }
 
-        return itemQtyLst;
-    }
-
-    @Override
-    public List dropItemName() {
-        String[] itemQtyArr = {ITEM_RABBIT_SKIN, ITEM_RABBIT_MEAT, ITEM_CARROT};
-        String itemQty;
-        List itemLst = new ArrayList();
-
-        for (int i = 0; i < itemQtyArr.length; i++) {
-            itemLst.add(itemQtyArr[i]);
+        //90% chance got animal skin
+        if (Utils.gotChance(90)) {
+            Item skin = new Item();
+            skin.setName(ANIMAL_SKIN);
+            skin.setItemType(RESOURCES);
+            skin.setQty(1);
+            result.add(skin);
         }
 
-        return itemLst;
+        return result;
     }
 }

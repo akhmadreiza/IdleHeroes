@@ -6,7 +6,6 @@ import com.akhmadreiza.idleheroes.controller.PlayerModifier;
 import java.util.Scanner;
 
 import static com.akhmadreiza.idleheroes.Utils.*;
-import static com.akhmadreiza.idleheroes.Utils.println;
 
 public class Adventure {
 
