@@ -25,15 +25,15 @@ public class Adventure {
         println("==============================");
 
         println("Memulai petualangan.........");
-        Thread.sleep(2000);
+        Thread.sleep(1000);
         println("Mencari musuh...............");
-        Thread.sleep(2000);
+        Thread.sleep(1000);
 
         int foo = getRandPercentage();
         if (foo < 60) //60% chance of meeting monster
         {
             println("Musuh ditemukan!");
-            Thread.sleep(1200);
+            Thread.sleep(1000);
             playerModifier.setNextState(StateEnum.BATTLE);
             new Battle(playerModifier).begin();
         } else {

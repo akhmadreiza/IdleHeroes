@@ -4,11 +4,13 @@
 package com.akhmadreiza.idleheroes.controller;
 
 import com.akhmadreiza.idleheroes.constant.ItemType;
+import com.akhmadreiza.idleheroes.constant.PlayerConstants;
 import com.akhmadreiza.idleheroes.constant.StateEnum;
 import com.akhmadreiza.idleheroes.entities.Player;
 import com.akhmadreiza.idleheroes.entities.PlayerJobNovice;
 import com.akhmadreiza.idleheroes.entities.PlayerJobWarrior;
 import com.akhmadreiza.idleheroes.exception.FeatureUnimplementedException;
+import com.akhmadreiza.idleheroes.items.Consumable;
 import com.akhmadreiza.idleheroes.items.Item;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,6 +21,8 @@ import java.util.HashMap;
 import java.util.List;
 
 import static com.akhmadreiza.idleheroes.Utils.println;
+import static com.akhmadreiza.idleheroes.constant.GeneralConstants.PLAYER_NOVICE;
+import static com.akhmadreiza.idleheroes.constant.GeneralConstants.PLAYER_WARRIOR;
 
 /**
  * @author akhmadreiza
@@ -65,13 +69,27 @@ public class PlayerModifier {
     }
 
     public void subtractItemFromInventory(Item item) {
-        //TODO: add update
+        Item itemInMap = inventory.get(item.getName());
+        itemInMap.setQty(itemInMap.getQty() - 1);
+        if (itemInMap.getQty() == 0) {
+            inventory.remove(itemInMap.getName());
+        } else {
+            inventory.put(itemInMap.getName(), itemInMap);
+        }
     }
 
     public void addItemToInventory(List<Item> items) {
         if (!items.isEmpty()) {
             items.forEach(this::addItemToInventory);
         }
+    }
+
+    public void consumeItem(Consumable selectedConsumableItem) {
+        int maxHp = getPlayerMaxHp();
+        int currHp = this.playerHP;
+        int hpAddition = selectedConsumableItem.getHealPoint();
+        int hpAfterHeal = currHp + hpAddition;
+        this.playerHP = Math.min(hpAfterHeal, maxHp);
     }
 
     public void levelUp() {
@@ -130,5 +148,14 @@ public class PlayerModifier {
 
     public void  printAllItems() {
         printInventory(null);
+    }
+
+    public int getPlayerMaxHp() {
+        if (this.playerJob.equalsIgnoreCase(PLAYER_NOVICE)) {
+            return PlayerConstants.MAX_HP_NOVICE;
+        } else if (this.playerJob.equalsIgnoreCase(PLAYER_WARRIOR)) {
+            return PlayerConstants.MAX_HP_WARRIOR;
+        }
+        return 0;
     }
 }

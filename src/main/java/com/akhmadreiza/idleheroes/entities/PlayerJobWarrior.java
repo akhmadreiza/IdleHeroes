@@ -3,6 +3,8 @@
  */
 package com.akhmadreiza.idleheroes.entities;
 
+import static com.akhmadreiza.idleheroes.constant.PlayerConstants.MAX_HP_WARRIOR;
+
 /**
  * @author akhmadreiza
  */
@@ -11,7 +13,7 @@ public class PlayerJobWarrior extends Player {
     @Override
     public int getHp() {
         // TODO Auto-generated method stub
-        return 150;
+        return MAX_HP_WARRIOR;
     }
 
     @Override

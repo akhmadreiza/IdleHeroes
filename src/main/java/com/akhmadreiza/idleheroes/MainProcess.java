@@ -1,7 +1,7 @@
 package com.akhmadreiza.idleheroes;
 
 import com.akhmadreiza.idleheroes.actions.Adventure;
-import com.akhmadreiza.idleheroes.constant.ItemType;
+import com.akhmadreiza.idleheroes.actions.Consume;
 import com.akhmadreiza.idleheroes.constant.StateEnum;
 import com.akhmadreiza.idleheroes.controller.PlayerModifier;
 import com.akhmadreiza.idleheroes.entities.PlayerJobNovice;
@@ -18,7 +18,7 @@ public class MainProcess {
     public static String playerName;
 
     public static int[] resources = {20, 20}; //wood,stones
-    static Scanner scan = new Scanner(System.in);
+    private static Scanner scan = new Scanner(System.in);
 
     private static PlayerModifier playerModifier;
 
@@ -73,10 +73,8 @@ public class MainProcess {
             featureNotAvailableNotification();
             playerModifier.setNextState(StateEnum.INIT);
         } else if (choices.equals("5")) {
-            /*int currHp = playerModifier.getPlayerHP();
-            playerModifier.setPlayerHP(currHp + 50);
-            navigateTo(StateEnum.BACK_TO_BASE);*/
-            showConsumables();
+            clearScreen();
+            new Consume(playerModifier).begin();
         } else if (choices.equalsIgnoreCase("x")) {
             exitNotification();
             System.exit(0);
@@ -126,7 +124,6 @@ public class MainProcess {
     private static void levelUpNotification() {
         clearScreen();
 
-        String choices;
         println("=========================");
         println("Idle Heroes - LEVEL UP!");
         println("=========================");
@@ -140,27 +137,13 @@ public class MainProcess {
         playerModifier.setNextState(StateEnum.BACK_TO_BASE);
     }
 
-    public static void showResources() {
+    private static void showResources() {
         clearScreen();
         playerModifier.printAllItems();
 
         String choices;
         do {
             println("Tekan tombol x untuk melanjutkan");
-            print("Pilihan: ");
-            choices = scan.nextLine();
-        } while (!choices.equalsIgnoreCase("x"));
-
-        playerModifier.setNextState(StateEnum.BACK_TO_BASE);
-    }
-
-    private static void showConsumables() {
-        clearScreen();
-        playerModifier.printInventory(ItemType.CONSUMABLES);
-
-        String choices;
-        println("[x] Keluar");
-        do {
             print("Pilihan: ");
             choices = scan.nextLine();
         } while (!choices.equalsIgnoreCase("x"));
@@ -221,9 +204,9 @@ public class MainProcess {
 
     private static void promoteSuccessNotification() {
         clearScreen();
-        println("=========================");
+        println("==============================");
         println("Idle Heroes - Success Promoted");
-        println("=========================");
+        println("==============================");
 
         println("Selamat " + playerModifier.getPlayerName() + " kamu berhasil promote ke job " + playerModifier.getPlayerJob() + "!");
 
