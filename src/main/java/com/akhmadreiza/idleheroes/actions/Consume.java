@@ -67,7 +67,11 @@ public class Consume {
         println("Idle Heroes - Inventory");
         println("==============================");
 
-        println("Pilih item untuk heal:");
+        if (selectionMap.isEmpty()) {
+            println("Item heal kosong...");
+        } else {
+            println("Pilih item untuk heal:");
+        }
 
         HashMap<String, Item> inventoryMap = playerModifier.getInventory();
 
@@ -79,10 +83,6 @@ public class Consume {
                 selectionMap.put(itemIdx, consumable);
                 itemIdx++;
             }
-        }
-
-        if (selectionMap.isEmpty()) {
-            println("Kosong...");
         }
 
         println("==============================");
