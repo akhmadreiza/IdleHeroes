@@ -3,6 +3,7 @@
  */
 package com.akhmadreiza.idleheroes.controller;
 
+import com.akhmadreiza.idleheroes.Utils;
 import com.akhmadreiza.idleheroes.entities.Monster;
 import com.akhmadreiza.idleheroes.entities.MonsterRabbit;
 import com.akhmadreiza.idleheroes.items.Item;
@@ -44,5 +45,11 @@ public class MonsterModifier {
             this.monsterLevel = rbt.getLevel();
             this.monsterDrops = rbt.getDrops();
         }
+    }
+
+    public void printMonsterDrops() {
+        monsterDrops.forEach(item -> {
+            Utils.print(item.getName() + " (" + item.getQty() + ") ");
+        });
     }
 }

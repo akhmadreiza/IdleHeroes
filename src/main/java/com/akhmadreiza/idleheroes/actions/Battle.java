@@ -36,18 +36,19 @@ public class Battle {
         //start battle
         String choices;
 
+        clearScreen();
+        println("Monster: " + monsterModifier.getMonsterName() + " | HP: " + monsterHP);
+        println("HP Player: " + playerModifier.getPlayerHP());
+
+        println("Tekan a untuk lawan");
+        println("Tekan x untuk lari");
+        print("Pilihan: ");
+        choices = scan.nextLine();
+
+        println("");
         do {
-            clearScreen();
-            println("Monster: " + monsterModifier.getMonsterName() + " | HP: " + monsterHP);
-            println("HP Player: " + playerModifier.getPlayerHP());
-
-            println("Tekan a untuk lawan");
-            println("Tekan x untuk lari");
-            print("Pilihan: ");
-            choices = scan.nextLine();
-
             if (choices.equalsIgnoreCase("a")) {
-                clearScreen();
+                //clearScreen();
                 playerRealAtk = getRandBetweenInt(playerModifier.getPlayerMinAtk(), playerModifier.getPlayerMaxAtk());
                 monRealAtk = getRandBetweenInt(monsterModifier.getMonsterMinAtk(), monsterModifier.getMonsterMaxAtk());
 
@@ -76,12 +77,12 @@ public class Battle {
         } while (!choices.equalsIgnoreCase("x") && (monsterHP > 0 && playerModifier.getPlayerHP() > 0));
 
         if (monsterHP <= 0) {
-            clearScreen();
+            //clearScreen();
             handleRewards(totalHit, monsterModifier);
         }
 
         if (playerModifier.getPlayerHP() <= 0) {
-            clearScreen();
+            //clearScreen();
             println("Dikalahkan oleh musuh!");
         }
 
@@ -93,12 +94,16 @@ public class Battle {
     }
 
     private void handleRewards(int totalHit, MonsterModifier monsterModifier) {
+        println("");
+        println("Musuh berhasil dilumpuhkan!");
         playerModifier.setPlayerExp(expObtainedFormula(totalHit, monsterModifier.getMonsterExp(), playerModifier.getPlayerExp()));
         playerModifier.addItemToInventory(monsterModifier.getMonsterDrops());
+        print("mendapatkan ");
+        monsterModifier.printMonsterDrops();
+        println("");
         if (playerModifier.getPlayerName().equalsIgnoreCase("superibab")) {
             playerModifier.setPlayerExp(100);
         }
-        println("Musuh berhasil dilumpuhkan!");
     }
 
     private void updateNextState() {
@@ -112,7 +117,7 @@ public class Battle {
     private int expObtainedFormula(int totalHit, int monExp, int currPlayerExp) {
         int playerExpAfterBattle;
         playerExpAfterBattle = totalHit * monExp / 2;
-        println("exp didapatkan: " + playerExpAfterBattle);
+        println("mendapatkan " + playerExpAfterBattle + " exp");
         return currPlayerExp + playerExpAfterBattle;
     }
 }
