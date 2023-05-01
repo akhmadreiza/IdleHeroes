@@ -34,17 +34,14 @@ public class MonsterModifier {
     private List<Item> monsterDrops;
 
     public MonsterModifier(Monster monster) {
-        if (monster instanceof MonsterRabbit) {
-            MonsterRabbit rbt = (MonsterRabbit) monster;
-            this.monsterName = rbt.getName();
-            this.monsterClass = rbt.getClazz();
-            this.monsterHP = rbt.getHp();
-            this.monsterMinAtk = rbt.getMinAtk();
-            this.monsterMaxAtk = rbt.getMaxAtk();
-            this.monsterExp = rbt.getStoredExp();
-            this.monsterLevel = rbt.getLevel();
-            this.monsterDrops = rbt.getDrops();
-        }
+        this.monsterName = monster.getName();
+        this.monsterClass = monster.getClazz();
+        this.monsterHP = monster.getHp();
+        this.monsterMinAtk = monster.getMinAtk();
+        this.monsterMaxAtk = monster.getMaxAtk();
+        this.monsterExp = monster.getStoredExp();
+        this.monsterLevel = monster.getLevel();
+        this.monsterDrops = monster.getDrops();
     }
 
     public void printMonsterDrops() {

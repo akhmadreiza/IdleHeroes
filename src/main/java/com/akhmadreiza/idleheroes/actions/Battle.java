@@ -19,9 +19,11 @@ public class Battle {
 
     static Scanner scan = new Scanner(System.in);
     private PlayerModifier playerModifier;
+    private MonsterModifier monsterModifier;
 
-    public Battle(PlayerModifier playerModifier) {
+    public Battle(PlayerModifier playerModifier, MonsterModifier monsterModifier) {
         this.playerModifier = playerModifier;
+        this.monsterModifier = monsterModifier;
     }
 
     public void begin() throws InterruptedException {
@@ -29,8 +31,6 @@ public class Battle {
         int playerRealAtk;
         int monRealAtk;
         int totalHit = 0;
-
-        MonsterModifier monsterModifier = new MonsterModifier(new MonsterRabbit());
         int monsterHP = monsterModifier.getMonsterHP();
 
         //start battle
