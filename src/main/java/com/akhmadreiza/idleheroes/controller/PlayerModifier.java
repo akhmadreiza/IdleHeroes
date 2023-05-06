@@ -115,10 +115,10 @@ public class PlayerModifier {
         println("==============================");
         println("Idle Heroes - Your Stats");
         println("==============================");
-        println("HP    : " + this.playerHP);
         println("Job   : " + this.playerJob);
         println("Level : " + this.playerLevel);
-        println("XP    : " + this.playerExp);
+        println("XP    : " + this.playerExp + "/100");
+        println("HP    : " + this.playerHP + "/" + getPlayerMaxHp());
         println("==============================");
     }
 

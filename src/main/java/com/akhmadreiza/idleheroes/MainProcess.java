@@ -49,8 +49,12 @@ public class MainProcess {
         println("==============================");
         println("Idle Heroes - Home Base");
         println("==============================");
-
-        println("Selamat datang " + playerModifier.getPlayerName() + ", your HP: " + playerModifier.getPlayerHP() + ", your Exp: " + playerModifier.getPlayerExp() + ", your Level: " + playerModifier.getPlayerLevel());
+        println("Name  : " + playerModifier.getPlayerName());
+        println("Job   : " + playerModifier.getPlayerJob());
+        println("Level : " + playerModifier.getPlayerLevel());
+        println("XP    : " + playerModifier.getPlayerExp() + "/100");
+        println("HP    : " + playerModifier.getPlayerHP() + "/" + playerModifier.getPlayerMaxHp());
+        println("==============================");
 
         println("");
         println("[1] Lihat stat   | [4] Crafting");
