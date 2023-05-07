@@ -111,15 +111,30 @@ public class PlayerModifier {
         }
     }
 
-    public void printStat() {
+    private void printStat() {
         println("==============================");
         println("Idle Heroes - Your Stats");
         println("==============================");
+        println("Name  : " + this.playerName);
         println("Job   : " + this.playerJob);
         println("Level : " + this.playerLevel);
         println("XP    : " + this.playerExp + "/100");
         println("HP    : " + this.playerHP + "/" + getPlayerMaxHp());
         println("==============================");
+    }
+
+    public void printStat(boolean withHeader) {
+        if (withHeader) {
+            printStat();
+        } else {
+            println("Name  : " + this.playerName);
+            println("Job   : " + this.playerJob);
+            println("Level : " + this.playerLevel);
+            println("XP    : " + this.playerExp + "/100");
+            println("HP    : " + this.playerHP + "/" + getPlayerMaxHp());
+            println("==============================");
+            println("");
+        }
     }
 
     public void printInventory(ItemType itemType) {

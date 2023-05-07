@@ -107,7 +107,7 @@ public class MainProcess {
 
     private static void printPlayerStats() {
         clearScreen();
-        playerModifier.printStat();
+        playerModifier.printStat(true);
 
         println("");
         print("Tekan enter untuk melanjutkan");

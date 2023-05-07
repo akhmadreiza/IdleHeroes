@@ -67,11 +67,9 @@ public class Consume {
         println("Idle Heroes - Inventory");
         println("==============================");
 
-        if (selectionMap.isEmpty()) {
-            println("Item heal kosong...");
-        } else {
-            println("Pilih item untuk heal:");
-        }
+        playerModifier.printStat(false);
+
+        println("Pilih item untuk heal:");
 
         HashMap<String, Item> inventoryMap = playerModifier.getInventory();
 
@@ -79,10 +77,17 @@ public class Consume {
         for (Item eachItem : inventoryMap.values()) {
             if (eachItem.getItemType().equals(ItemType.CONSUMABLES)) {
                 Consumable consumable = (Consumable) eachItem;
-                println("[" + (itemIdx) + "] " + consumable.getName() + " (" + consumable.getQty() + ")" + " - " + consumable.getItemType());
+                println("[" + (itemIdx) + "] " + consumable.getName()
+                        + " (" + consumable.getQty() + ")"
+                        + " (Heal: " + consumable.getHealPoint() + " HP)"
+                        + " - " + consumable.getItemType());
                 selectionMap.put(itemIdx, consumable);
                 itemIdx++;
             }
+        }
+
+        if (selectionMap.isEmpty()) {
+            println("Item heal kosong...");
         }
 
         println("==============================");
