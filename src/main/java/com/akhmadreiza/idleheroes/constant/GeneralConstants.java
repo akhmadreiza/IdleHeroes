@@ -10,10 +10,6 @@ public class GeneralConstants {
     public static final String PLAYER_NOVICE = "Novice";
     public static final String PLAYER_WARRIOR = "Warrior";
 
-    //item name
-    public static final String MEAT = "Meat";
-    public static final String ANIMAL_SKIN = "Animal Skin";
-
     private GeneralConstants() {
     }
 }

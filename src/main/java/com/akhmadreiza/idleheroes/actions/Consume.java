@@ -3,7 +3,7 @@ package com.akhmadreiza.idleheroes.actions;
 import com.akhmadreiza.idleheroes.constant.ItemType;
 import com.akhmadreiza.idleheroes.constant.StateEnum;
 import com.akhmadreiza.idleheroes.controller.PlayerModifier;
-import com.akhmadreiza.idleheroes.items.Consumable;
+import com.akhmadreiza.idleheroes.items.consumable.Consumable;
 import com.akhmadreiza.idleheroes.items.Item;
 
 import java.util.HashMap;

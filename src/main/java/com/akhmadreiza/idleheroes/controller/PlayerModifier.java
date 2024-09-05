@@ -10,7 +10,7 @@ import com.akhmadreiza.idleheroes.entities.Player;
 import com.akhmadreiza.idleheroes.entities.PlayerJobNovice;
 import com.akhmadreiza.idleheroes.entities.PlayerJobWarrior;
 import com.akhmadreiza.idleheroes.exception.FeatureUnimplementedException;
-import com.akhmadreiza.idleheroes.items.Consumable;
+import com.akhmadreiza.idleheroes.items.consumable.Consumable;
 import com.akhmadreiza.idleheroes.items.Item;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
