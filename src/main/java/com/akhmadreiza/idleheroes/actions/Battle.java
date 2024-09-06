@@ -3,10 +3,11 @@
  */
 package com.akhmadreiza.idleheroes.actions;
 
+import com.akhmadreiza.idleheroes.biomes.Biome;
 import com.akhmadreiza.idleheroes.constant.StateEnum;
 import com.akhmadreiza.idleheroes.controller.MonsterModifier;
 import com.akhmadreiza.idleheroes.controller.PlayerModifier;
-import com.akhmadreiza.idleheroes.entities.MonsterRabbit;
+import lombok.RequiredArgsConstructor;
 
 import java.util.Scanner;
 
@@ -15,18 +16,15 @@ import static com.akhmadreiza.idleheroes.Utils.*;
 /**
  * @author akhmadreiza
  */
+@RequiredArgsConstructor
 public class Battle {
 
     static Scanner scan = new Scanner(System.in);
-    private PlayerModifier playerModifier;
-    private MonsterModifier monsterModifier;
-
-    public Battle(PlayerModifier playerModifier, MonsterModifier monsterModifier) {
-        this.playerModifier = playerModifier;
-        this.monsterModifier = monsterModifier;
-    }
+    private final PlayerModifier playerModifier;
+    private final Biome biome;
 
     public void begin() throws InterruptedException {
+        MonsterModifier monsterModifier = new MonsterModifier(biome.determineEnemyEncounter());
         playerModifier.setPrevState(StateEnum.BATTLE);
         int playerRealAtk;
         int monRealAtk;
@@ -37,6 +35,9 @@ public class Battle {
         String choices;
 
         clearScreen();
+        println("==============================");
+        println("Idle Heroes - " + biome.getBiomeName());
+        println("==============================");
         println("Monster: " + monsterModifier.getMonsterName() + " | HP: " + monsterHP);
         println("HP Player: " + playerModifier.getPlayerHP());
 

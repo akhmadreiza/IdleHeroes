@@ -1,6 +1,3 @@
-/**
- *
- */
 package com.akhmadreiza.idleheroes.entities;
 
 import com.akhmadreiza.idleheroes.items.Item;
@@ -12,49 +9,20 @@ import java.util.List;
 
 import static com.akhmadreiza.idleheroes.Utils.getRandBetweenInt;
 
-/**
- * @author akhmadreiza
- */
-public class MonsterRabbit extends Monster {
-
+public class MonsterFatRabbit extends MonsterRabbit {
     @Override
     public String getName() {
-        return "Rabbit";
-    }
-
-    @Override
-    public String getClazz() {
-        return "ANIMAL";
+        return "Fat Rabbit";
     }
 
     @Override
     public String getCode() {
-        return "RBT";
+        return "FRBT";
     }
 
     @Override
     public int getHp() {
-        return 30;
-    }
-
-    @Override
-    public int getMinAtk() {
-        return 1;
-    }
-
-    @Override
-    public int getMaxAtk() {
-        return 3;
-    }
-
-    @Override
-    public int getStoredExp() {
-        return 10 * (getLevel() / 2);
-    }
-
-    @Override
-    public int getLevel() {
-        return 8;
+        return super.getHp()*2;
     }
 
     @Override
@@ -64,12 +32,12 @@ public class MonsterRabbit extends Monster {
         int chance = getRandBetweenInt(1, 100);
 
         //meat drop rate
-        if (chance <= 15) {
-            result.add(new Meat(1));
+        if (chance <= 95) {
+            result.add(new Meat(2));
         }
 
         //animal skin drop rate
-        if (chance <= 95) {
+        if (chance <= 35) {
             result.add(new AnimalSkin(1));
         }
 
