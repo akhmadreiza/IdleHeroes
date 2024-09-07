@@ -10,8 +10,8 @@ import com.akhmadreiza.idleheroes.entities.Player;
 import com.akhmadreiza.idleheroes.entities.PlayerJobNovice;
 import com.akhmadreiza.idleheroes.entities.PlayerJobWarrior;
 import com.akhmadreiza.idleheroes.exception.FeatureUnimplementedException;
-import com.akhmadreiza.idleheroes.items.consumable.Consumable;
 import com.akhmadreiza.idleheroes.items.Item;
+import com.akhmadreiza.idleheroes.items.consumable.Consumable;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -75,6 +75,18 @@ public class PlayerModifier {
             inventory.remove(itemInMap.getName());
         } else {
             inventory.put(itemInMap.getName(), itemInMap);
+        }
+    }
+
+    public void subtractItemFromInventory(String itemName) {
+        if (inventory.containsKey(itemName)) {
+            Item itemInMap = inventory.get(itemName);
+            itemInMap.setQty(itemInMap.getQty() - 1);
+            if (itemInMap.getQty() == 0) {
+                inventory.remove(itemInMap.getName());
+            } else {
+                inventory.put(itemInMap.getName(), itemInMap);
+            }
         }
     }
 

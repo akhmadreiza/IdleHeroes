@@ -2,6 +2,7 @@ package com.akhmadreiza.idleheroes;
 
 import com.akhmadreiza.idleheroes.actions.Adventure;
 import com.akhmadreiza.idleheroes.actions.Consume;
+import com.akhmadreiza.idleheroes.actions.Craft;
 import com.akhmadreiza.idleheroes.constant.StateEnum;
 import com.akhmadreiza.idleheroes.controller.PlayerModifier;
 import com.akhmadreiza.idleheroes.entities.PlayerJobNovice;
@@ -74,8 +75,8 @@ public class MainProcess {
             playerModifier.setNextState(StateEnum.ADVENTURE);
             new Adventure(playerModifier).begin();
         } else if (choices.equals("4")) {
-            featureNotAvailableNotification();
-            playerModifier.setNextState(StateEnum.INIT);
+            playerModifier.setNextState(StateEnum.CRAFTING);
+            new Craft().begin(playerModifier);
         } else if (choices.equals("5")) {
             clearScreen();
             new Consume(playerModifier).begin();

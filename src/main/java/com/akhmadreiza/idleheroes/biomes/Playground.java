@@ -1,6 +1,7 @@
 package com.akhmadreiza.idleheroes.biomes;
 
 import com.akhmadreiza.idleheroes.entities.Monster;
+import com.akhmadreiza.idleheroes.entities.MonsterFatRabbit;
 import com.akhmadreiza.idleheroes.entities.MonsterRabbit;
 import com.akhmadreiza.idleheroes.entities.MonsterSpyda;
 import lombok.Getter;
@@ -17,7 +18,7 @@ public class Playground implements Biome {
             return new MonsterRabbit();
         } else if (chance <= 95) {
             //number between 81 - 95 (15% chance)
-            return new MonsterRabbit();
+            return new MonsterFatRabbit();
         } else {
             //(5% chance)
             return new MonsterSpyda();

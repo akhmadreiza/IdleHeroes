@@ -112,9 +112,11 @@ public class Battle {
         println("");
         println("Musuh berhasil dilumpuhkan!");
         playerModifier.setPlayerExp(expObtainedFormula(totalHit, monsterModifier.getMonsterExp(), playerModifier.getPlayerExp()));
-        playerModifier.addItemToInventory(monsterModifier.getMonsterDrops());
-        print("mendapatkan ");
-        monsterModifier.printMonsterDrops();
+        if (!monsterModifier.getMonsterDrops().isEmpty()) {
+            playerModifier.addItemToInventory(monsterModifier.getMonsterDrops());
+            print("mendapatkan ");
+            monsterModifier.printMonsterDrops();
+        }
         println("");
         if (playerModifier.getPlayerName().equalsIgnoreCase("superibab")) {
             playerModifier.setPlayerExp(100);

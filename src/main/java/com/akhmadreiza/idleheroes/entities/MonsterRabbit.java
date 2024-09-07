@@ -6,6 +6,8 @@ package com.akhmadreiza.idleheroes.entities;
 import com.akhmadreiza.idleheroes.items.Item;
 import com.akhmadreiza.idleheroes.items.consumable.Meat;
 import com.akhmadreiza.idleheroes.items.craft.AnimalSkin;
+import com.akhmadreiza.idleheroes.items.craft.Bottle;
+import com.akhmadreiza.idleheroes.items.craft.RedHerbs;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,14 +65,18 @@ public class MonsterRabbit extends Monster {
 
         int chance = getRandBetweenInt(1, 100);
 
-        //meat drop rate
-        if (chance <= 15) {
+        //drop rate
+        if (chance <= 5) {
             result.add(new Meat(1));
         }
 
-        //animal skin drop rate
         if (chance <= 95) {
             result.add(new AnimalSkin(1));
+            result.add(new RedHerbs(2));
+        }
+
+        if (chance <= 80) {
+            result.add(new Bottle(1));
         }
 
         return result;
