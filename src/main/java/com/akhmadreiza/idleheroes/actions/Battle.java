@@ -35,19 +35,17 @@ public class Battle {
         String choices;
 
         clearScreen();
-        println("==============================");
-        println("Idle Heroes - " + biome.getBiomeName());
-        println("==============================");
-        println("Monster: " + monsterModifier.getMonsterName() + " | HP: " + monsterHP);
-        println("HP Player: " + playerModifier.getPlayerHP());
-
-        println("Tekan a untuk lawan");
-        println("Tekan x untuk lari");
-        print("Pilihan: ");
-        choices = scan.nextLine();
-
-        println("");
+        printBattleHeader(monsterModifier, monsterHP);
         do {
+            println("HP Player: " + playerModifier.getPlayerHP() + " | " + "HP Monster: " + monsterHP);
+
+            println("Tekan a untuk lawan");
+            println("Tekan q untuk consume item");
+            println("Tekan x untuk lari");
+            print("Pilihan: ");
+            choices = scan.nextLine();
+
+            println("");
             if (choices.equalsIgnoreCase("a")) {
                 //clearScreen();
                 playerRealAtk = getRandBetweenInt(playerModifier.getPlayerMinAtk(), playerModifier.getPlayerMaxAtk());
@@ -59,17 +57,23 @@ public class Battle {
                 }
 
                 if (playerModifier.getPlayerHP() > 0 && monsterHP > 0) {
-                    println("Menyerang musuh! (ATK: " + playerRealAtk + ")");
+                    println("...Menyerang musuh! (ATK: " + playerRealAtk + ")...");
                     monsterHP = monsterHP - playerRealAtk;
                     Thread.sleep(700);
 
-                    println("Musuh menyerang! (ATK musuh: " + monRealAtk + ")");
+                    println("...Musuh menyerang! (ATK musuh: " + monRealAtk + ")...");
                     playerModifier.setPlayerHP(playerModifier.getPlayerHP() - monRealAtk);
                 }
+                println("");
 
                 totalHit++;
 
                 Thread.sleep(1000);
+            } else if (choices.equals("q")) {
+                clearScreen();
+                new Consume(playerModifier).begin();
+                clearScreen();
+                printBattleHeader(monsterModifier, monsterHP);
             } else if (choices.equals("x")) {
                 clearScreen();
                 println("Berhasil kabur dari musuh!");
@@ -92,6 +96,16 @@ public class Battle {
         scan.nextLine();
 
         updateNextState();
+    }
+
+    private void printBattleHeader(MonsterModifier monsterModifier, int monsterHP) {
+        println("==============================");
+        println("Idle Heroes - " + biome.getBiomeName());
+        println("==============================");
+        println(monsterModifier.getMonsterAvatar());
+        println("Monster: " + monsterModifier.getMonsterName() + " | HP: " + monsterHP);
+        println("==============================");
+        println("");
     }
 
     private void handleRewards(int totalHit, MonsterModifier monsterModifier) {

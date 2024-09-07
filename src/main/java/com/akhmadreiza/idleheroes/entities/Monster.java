@@ -29,4 +29,16 @@ public abstract class Monster {
     public abstract int getLevel();
 
     public abstract List<Item> getDrops();
+
+    public String getAvatar() {
+        return "     (\\-\"```\"-/)\n" +
+                "     //^\\   /^\\\\\n" +
+                "    ;/ ~_\\ /_~ \\;\n" +
+                "    |  / \\Y/ \\  |\n" +
+                "   (,  \\0/ \\0/  ,)\n" +
+                "    |   /   \\   |\n" +
+                "    | (_\\._./_) |\n" +
+                "     \\ \\v-.-v/ /\n" +
+                "jgs   \\ `===' /";
+    }
 }

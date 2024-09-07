@@ -32,6 +32,7 @@ public class MonsterModifier {
     private int monsterExp;
     private int monsterLevel;
     private List<Item> monsterDrops;
+    private String monsterAvatar;
 
     public MonsterModifier(Monster monster) {
         this.monsterName = monster.getName();
@@ -42,6 +43,7 @@ public class MonsterModifier {
         this.monsterExp = monster.getStoredExp();
         this.monsterLevel = monster.getLevel();
         this.monsterDrops = monster.getDrops();
+        this.monsterAvatar = monster.getAvatar();
     }
 
     public void printMonsterDrops() {

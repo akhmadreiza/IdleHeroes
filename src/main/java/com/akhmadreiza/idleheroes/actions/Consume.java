@@ -21,17 +21,17 @@ public class Consume {
 
     public Consume(PlayerModifier playerModifier) {
         this.playerModifier = playerModifier;
-        printConsumables();
     }
 
     public void begin() {
+        printConsumables();
         String choices;
         Consumable selectedConsumableItem;
         println("[x] Keluar");
         do {
             print("Pilihan: ");
             choices = scan.nextLine();
-            if (!choices.equalsIgnoreCase("x")) {
+            if (!choices.isEmpty() && !choices.isBlank() && !choices.equalsIgnoreCase("x")) {
                 selectedConsumableItem = selectionMap.get(Integer.parseInt(choices));
                 if (selectedConsumableItem != null) {
                     playerModifier.consumeItem(selectedConsumableItem);

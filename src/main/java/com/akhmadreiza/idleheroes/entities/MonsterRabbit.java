@@ -75,4 +75,15 @@ public class MonsterRabbit extends Monster {
 
         return result;
     }
+
+    @Override
+    public String getAvatar() {
+        return " \\\\\n" +
+                "  \\\\_\n" +
+                "  ( _\\\n" +
+                "  / \\__\n" +
+                " / _/`\"`\n" +
+                "{\\  )_\n" +
+                "  `\"\"\"`";
+    }
 }
